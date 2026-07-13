@@ -13,7 +13,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.jorisleva.liquidglass",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Cette app utilise votre position pour vous localiser sur la carte et calculer des itinéraires."
+        "NSLocationWhenInUseUsageDescription": "Cette app utilise votre position pour vous localiser sur la carte et calculer des itinéraires.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
