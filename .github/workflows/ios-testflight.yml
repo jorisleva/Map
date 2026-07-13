@@ -48,13 +48,13 @@ jobs:
       # Build sur les serveurs EAS, puis soumission automatique à TestFlight
       # (profil "production"). Les identifiants Apple et la clé Mistral vivent
       # côté EAS (voir TESTFLIGHT.md) — aucun secret Apple n'est requis ici.
-      # Push (marqueur [build-ios]) → build "preview" (distribution interne,
-      # installable via lien/QR). Dispatch manuel "production" → build + envoi
-      # TestFlight. Les deux exigent que le certificat iOS soit configuré côté EAS.
+      # Push (marqueur [build-ios]) → build "production" + envoi TestFlight
+      # (chemin le plus simple sans ordinateur). Dispatch manuel "preview" →
+      # distribution interne. Les deux exigent le certificat iOS configuré côté EAS.
       - name: Build & submit
         run: |
-          if [ "${{ inputs.profile }}" = "production" ]; then
-            eas build --platform ios --profile production --non-interactive --auto-submit
-          else
+          if [ "${{ inputs.profile }}" = "preview" ]; then
             eas build --platform ios --profile preview --non-interactive
+          else
+            eas build --platform ios --profile production --non-interactive --auto-submit
           fi
