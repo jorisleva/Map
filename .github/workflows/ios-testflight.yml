@@ -1,0 +1,43 @@
+name: iOS · TestFlight
+
+# Déclenchement MANUEL : onglet "Actions" du repo GitHub → "iOS · TestFlight"
+# → "Run workflow". (Idéal pour maîtriser la consommation de builds EAS.)
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "Profil EAS"
+        default: production
+        type: choice
+        options:
+          - production
+          - preview
+
+jobs:
+  build-submit:
+    name: Build iOS + envoi TestFlight
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Build sur les serveurs EAS, puis soumission automatique à TestFlight
+      # (profil "production"). Les identifiants Apple et la clé Mistral vivent
+      # côté EAS (voir TESTFLIGHT.md) — aucun secret Apple n'est requis ici.
+      - name: Build & submit
+        run: eas build --platform ios --profile ${{ inputs.profile }} --non-interactive --auto-submit

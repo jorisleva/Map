@@ -11,11 +11,13 @@
     "ios": {
       "icon": "./assets/expo.icon",
       "supportsTablet": true,
+      "bundleIdentifier": "com.jorisleva.liquidglass",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Cette app utilise votre position pour vous localiser sur la carte et calculer des itinéraires."
       }
     },
     "android": {
+      "package": "com.jorisleva.liquidglass",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -53,6 +55,11 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "REMPLACER-PAR-VOTRE-EAS-PROJECT-ID"
+      }
     }
   }
 }
