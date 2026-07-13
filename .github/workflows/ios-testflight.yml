@@ -1,7 +1,11 @@
 name: iOS · TestFlight
 
-# Déclenchement MANUEL : onglet "Actions" du repo GitHub → "iOS · TestFlight"
-# → "Run workflow". (Idéal pour maîtriser la consommation de builds EAS.)
+# Déclenchement :
+#  - MANUEL depuis l'onglet Actions (bouton "Run workflow") — disponible une fois
+#    le workflow présent sur la branche par défaut.
+#  - Par TAG "ios-testflight-*" (ex: `git tag ios-testflight-1 && git push origin
+#    ios-testflight-1`) — fonctionne depuis n'importe quelle branche, pratique
+#    tant que le workflow n'est pas encore sur la branche par défaut.
 on:
   workflow_dispatch:
     inputs:
@@ -12,6 +16,9 @@ on:
         options:
           - production
           - preview
+  push:
+    tags:
+      - 'ios-testflight-*'
 
 jobs:
   build-submit:
@@ -40,4 +47,4 @@ jobs:
       # (profil "production"). Les identifiants Apple et la clé Mistral vivent
       # côté EAS (voir TESTFLIGHT.md) — aucun secret Apple n'est requis ici.
       - name: Build & submit
-        run: eas build --platform ios --profile ${{ inputs.profile }} --non-interactive --auto-submit
+        run: eas build --platform ios --profile ${{ inputs.profile || 'production' }} --non-interactive --auto-submit
