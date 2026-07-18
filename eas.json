@@ -18,7 +18,11 @@
   },
   "submit": {
     "production": {
-      "ios": {}
+      "ios": {
+        "appName": "Navigation Liquid Glass",
+        "language": "en-US",
+        "companyName": "Joris Levasseur"
+      }
     }
   }
 }
